@@ -1,38 +1,35 @@
 <template>
-  <div id="app">
-    <router-view />
-  </div>
+    <div id="app">
+        <page-header />
+        <div class="wrapper">
+            <router-view />
+        </div>
+    </div>
 </template>
 
 <script>
+import Header from "./components/Header";
 export default {
-  components: {
-    
-  },
-  data() {
-    return {};
-  }
+    components: {
+        "page-header": Header
+    },
+    data() {
+        return {};
+    }
 };
 </script>
 
 <style lang="scss">
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+    font-family: "Open Sans", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.wrapper {
+    margin: 0 auto;
+    max-width: $wrapper-width;
+    padding: 0 10px;
 }
 </style>

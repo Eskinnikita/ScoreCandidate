@@ -1,0 +1,79 @@
+//colors
+$main-color: #343a40;
+
+//appearance
+$border-radius: 5px;
+$border-light-gray: 1px solid #bebebe;
+
+//width-config
+$wrapper-width: 1140px;
+
+//mixins
+
+@mixin boxShadowBigBlur {
+    -webkit-box-shadow: 0 0px 28px rgba(0, 0, 0, 0.15),
+        0 10px 10px rgba(0, 0, 0, 0.12);
+    -moz-box-shadow: 0 0px 28px rgba(0, 0, 0, 0.15),
+        0 10px 10px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 0px 28px rgba(0, 0, 0, 0.15), 0 10px 10px rgba(0, 0, 0, 0.12);
+}
+@mixin flexSpaceBetween {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@mixin flexDirectionColumn {
+    display: flex;
+    flex-direction: column;
+}
+
+@mixin flexCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin link($color) {
+    background: none;
+    border: none;
+    color: $color;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    &:hover {
+        opacity: 0.7;
+    }
+}
+
+@mixin input {
+    width: 100%;
+    height: 40px;
+    padding: 15px 5px;
+    box-sizing: border-box;
+    border: $border-light-gray;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    font-size: 15px;
+}
+
+@mixin label {
+    margin-bottom: 5px;
+}
+
+@mixin button-dark {
+    background-color: #343a40;
+    color: #fff;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: 0.3s;
+    &:hover {
+      opacity: 0.85;
+    }
+    
+    &:active {
+      transform: scale(0.95)
+    }
+}
