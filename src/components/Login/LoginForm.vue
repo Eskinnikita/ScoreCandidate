@@ -24,10 +24,7 @@ export default {
       }
     },
     methods: {
-      submitForm() {
-        console.log('email', this.email, 'password', this.password)
-        this.$router.replace('/')
-      }
+      
     }
 };
 </script>

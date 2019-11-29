@@ -9,12 +9,19 @@
 
 <script>
 import Header from "./components/Header";
+
 export default {
     components: {
         "page-header": Header
     },
     data() {
         return {};
+    },
+    mounted() {
+        this.getPosts()
+    },
+    methods: {
+        
     }
 };
 </script>
