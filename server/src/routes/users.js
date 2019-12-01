@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const express = require('express')
+const auth = require('../middlewares/auth')
 const User = require('../models/User')
 
 const router = express.Router()
@@ -35,7 +36,24 @@ router.post('/login', async (req, res) => {
             token
         })
     } catch (err) {
-        res.status(400).send(err)
+        res.status(400).send({err: 'Ошибка авторизации'})
+    }
+})
+
+router.get('/me', auth, (req, res) => {
+    res.send(req.user)
+})
+
+router.get('/me/logout', auth, async (req, res) => {
+    try {
+        req.user.tokens = req.user.tokens.filter(token => {
+            return token.token != req.token
+        })
+        await req.user.save()
+        res.send()
+    }
+    catch(err) {
+        res.status(500).json({error: err})
     }
 })
 

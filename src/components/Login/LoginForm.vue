@@ -10,12 +10,14 @@
                 Пароль
             </label>
             <input class="form__input" name="password" type="password" v-model="password"/>
-            <button type="submit" @click.prevent="submitForm" class="form_submit-button">Войти</button>
+            <button type="submit" @click.prevent="login" class="form_submit-button">Войти</button>
+            <span style="color: red">{{authStore.error}}</span>
         </form>
     </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
     data() {
       return {
@@ -24,7 +26,19 @@ export default {
       }
     },
     methods: {
-      
+      login() {
+          const {email, password} = this
+          this.$store.dispatch('authRequest', {email, password})
+          .then(() => {
+              this.$router.push({path: '/'})
+          })
+          .catch(err => {
+              console.log(err)
+          })
+      }
+    },
+    computed: {
+        ...mapState(['authStore'])
     }
 };
 </script>

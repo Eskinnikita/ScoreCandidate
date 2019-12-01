@@ -2,19 +2,40 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '@/views/Login'
 import Home from '@/views/Home'
+import store from '../store/index'
 
 Vue.use(VueRouter)
+
+const ifNotAuthenticated = (to, from, next) => {
+  console.log(store.getters.isAuthenticated)
+  if (!store.getters.isAuthenticated) {
+    next()
+    return
+  }
+  next('/')
+}
+
+const ifAuthenticated = (to, from, next) => {
+  console.log(store.getters.isAuthenticated)
+  if (store.getters.isAuthenticated) {
+    next()
+    return
+  }
+  next('/login')
+}
 
 const routes = [
   {
     path: '/',
     name: 'home',
-    component: Home
+    component: Home,
+    beforeEnter: ifAuthenticated
   },
   {
     path: '/login',
     name: 'login',
-    component: Login
+    component: Login,
+    beforeEnter: ifNotAuthenticated
   }
   // {
   //   path: '/about',
@@ -25,6 +46,7 @@ const routes = [
   //   component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   // }
 ]
+
 
 const router = new VueRouter({
   mode: 'history',

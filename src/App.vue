@@ -9,7 +9,6 @@
 
 <script>
 import Header from "./components/Header";
-
 export default {
     components: {
         "page-header": Header
@@ -17,8 +16,8 @@ export default {
     data() {
         return {};
     },
-    mounted() {
-        this.getPosts()
+    created() {
+        this.$store.commit('INITIALIZE_AUTH_STORE')
     },
     methods: {
         
