@@ -3,11 +3,10 @@
         <div class="wrapper">
             <span class="title" @click="toHomePage">Score Candidate <i class="fas fa-file"></i></span>
             <div>
-                <span v-if="hasToken" class="username">{{authStore.user.surname}} {{authStore.user.name}}</span>
-                <router-link to="/login" v-if="!hasToken">
-                     <button class="link-button">войти</button>
-                </router-link>
-                <button class="link-button" v-else @click="logout">выйти</button>
+                <span v-if="hasToken" class="username link-button">
+                    {{authStore.user.surname}} {{authStore.user.name}}
+                </span>
+                <button class="link-button" v-if="hasToken" @click="logout">выйти</button>
             </div>
         </div>
     </div>
@@ -21,7 +20,6 @@ export default {
         return {};
     },
     created() {
-       console.log()
     },
     methods: {
         toHomePage() {
@@ -31,7 +29,7 @@ export default {
             this.$store
                 .dispatch("authLogout")
                 .then(() => {
-                    this.$router.push({ path: "/login" });
+                    this.$router.push({ path: "/login" }, () => {});
                 })
                 .catch(err => {
                     console.log(err.message);
@@ -42,6 +40,9 @@ export default {
         ...mapState(['authStore']),
         hasToken() {
             return this.$store.getters.isAuthenticated;
+        },
+        loginRouteActive() {
+            return this.$router.currentRoute.name == 'login'
         }
         // hasNameOrSurname() {
         //     return this.user.surname || this.user.name
