@@ -17,6 +17,13 @@ $wrapper-width: 1140px;
         0 10px 10px rgba(0, 0, 0, 0.12);
     box-shadow: 0 0px 28px rgba(0, 0, 0, 0.15), 0 10px 10px rgba(0, 0, 0, 0.12);
 }
+
+@mixin scaleHover {
+    &:hover {
+        transform: scale(1.02)
+    }
+}
+
 @mixin flexSpaceBetween {
     display: flex;
     justify-content: space-between;

@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '@/views/Login'
 import Home from '@/views/Home'
+import Rating from '@/views/Rating'
+import NotFound from '@/views/NotFound'
 import store from '../store/index'
 
 Vue.use(VueRouter)
@@ -34,6 +36,18 @@ const routes = [
     name: 'login',
     component: Login,
     beforeEnter: ifNotAuthenticated
+  },
+  {
+    path: '/profession/:spec',
+    name: 'Rating',
+    props: true,
+    component: Rating,
+    beforeEnter: ifAuthenticated
+
+  },
+  {
+    path: '*',
+    component: NotFound
   }
   // {
   //   path: '/about',

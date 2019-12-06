@@ -61,5 +61,6 @@ export const actions = {
 }
 export const getters = {
     isAuthenticated: state => !!state.token,
-    authStatus: state => state.status
+    authStatus: state => state.status,
+    isAdmin: state => state.user.isAdmin
 }

@@ -3,6 +3,7 @@
         <div class="wrapper">
             <span class="title" @click="toHomePage">Score Candidate <i class="fas fa-file"></i></span>
             <div>
+                <button v-if="isAdmin">Добавить пользователя</button>
                 <span v-if="hasToken" class="username link-button">
                     {{authStore.user.surname}} {{authStore.user.name}}
                 </span>
@@ -15,7 +16,6 @@
 <script>
 import { mapState } from "vuex";
 export default {
-    components: {},
     data() {
         return {};
     },
@@ -41,12 +41,9 @@ export default {
         hasToken() {
             return this.$store.getters.isAuthenticated;
         },
-        loginRouteActive() {
-            return this.$router.currentRoute.name == 'login'
+        isAdmin() {
+            return this.$store.getters.isAdmin
         }
-        // hasNameOrSurname() {
-        //     return this.user.surname || this.user.name
-        // }
     }
 };
 </script>
