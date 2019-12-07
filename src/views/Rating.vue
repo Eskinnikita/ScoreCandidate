@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2>Оценка резюме {{$route.params.spec}}</h2>
+        <h2>Оценка резюме {{spec}}</h2>
         <resume/>
     </div>
 </template>
@@ -12,11 +12,10 @@ import Resume from '../components/Global/Resume'
             'resume': Resume
         },
         created() {
-            console.log(this.$route.params.spec)
         },
         data() {
             return {
-
+                spec: this.$route.params.spec
             }
         }
     }
