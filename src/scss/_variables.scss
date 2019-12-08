@@ -20,7 +20,7 @@ $wrapper-width: 1140px;
 
 @mixin scaleHover {
     &:hover {
-        transform: scale(1.02)
+        transform: scale(1.02);
     }
 }
 
@@ -78,10 +78,35 @@ $wrapper-width: 1140px;
     font-size: 15px;
     transition: 0.3s;
     &:hover {
-      opacity: 0.85;
+        opacity: 0.85;
     }
-    
+
     &:active {
-      transform: scale(0.95)
+        transform: scale(0.95);
+    }
+}
+
+@mixin ratingButton($color) {
+    //color: #fff;
+    width: 50px;
+    height: 50px;
+    color: $color;
+    border: 3px solid $color;
+    border-radius: $border-radius;
+     //border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: 0.2s;
+    margin: 0 10px;
+    &:hover {
+        background-color: $color;
+        color: #fff;
+    }
+    &:active {
+        opacity: 0.9;
     }
 }
