@@ -3,7 +3,7 @@
         <div class="wrapper">
             <span class="title" @click="toHomePage">Score Candidate <i class="fas fa-file"></i></span>
             <div>
-                <button v-if="isAdmin">Добавить пользователя</button>
+                <button class="header__admin-link" v-if="isAdminPage" @click="goToAdminPage">Добавить пользователя</button>
                 <span v-if="hasToken" class="username link-button">
                     {{authStore.user.surname}} {{authStore.user.name}}
                 </span>
@@ -34,6 +34,9 @@ export default {
                 .catch(err => {
                     console.log(err.message);
                 });
+        },
+        goToAdminPage() {
+            this.$router.push('/admin')
         }
     },
     computed: {
@@ -43,6 +46,9 @@ export default {
         },
         isAdmin() {
             return this.$store.getters.isAdmin
+        },
+        isAdminPage() {
+            return this.isAdmin && this.$route.name !== 'Admin'
         }
     }
 };
@@ -70,6 +76,12 @@ export default {
 
     .username {
         padding: 0 10px;
+    }
+
+    .header__admin-link {
+        @include button-light;
+        padding: 5px;
+        font-size: 12px;
     }
 }
 

@@ -13,9 +13,10 @@ router.post('/', async (req, res) => {
         res.status(201).json({user, token})
     }
     catch(err) {
-        res.status(400).send(err)
+        res.status(400).send({error: err})
     }
 })
+
 
 router.post('/login', async (req, res) => {
     try {
@@ -36,7 +37,7 @@ router.post('/login', async (req, res) => {
             token
         })
     } catch (err) {
-        res.status(400).send({err: 'Ошибка авторизации'})
+        res.status(400).send({error: 'Ошибка авторизации'})
     }
 })
 

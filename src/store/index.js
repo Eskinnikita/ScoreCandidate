@@ -2,12 +2,13 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import * as authStore from './modules/auth'
 import * as resumeStore from './modules/resume'
+import * as usersStore from './modules/users'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    
+    isLoading: false
   },
   mutations: {
     
@@ -20,6 +21,7 @@ export default new Vuex.Store({
   },
   modules: {
     authStore,
-    resumeStore
+    resumeStore,
+    usersStore
   }
 })

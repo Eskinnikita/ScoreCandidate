@@ -8,8 +8,12 @@ export const state = {
 }
 export const mutations = {
     APPROVE_RESUME(state, {index, status}) {
-        console.log(index, status);
         state.testResume[index].approved = status
+    },
+    RESET_APPROVE(state) {
+        state.testResume.forEach(el => {
+            el.approved = null
+        })
     }
 }
 export const actions = {

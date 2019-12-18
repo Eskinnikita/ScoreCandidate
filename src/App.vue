@@ -2,17 +2,20 @@
     <div id="app">
         <page-header />
         <div class="wrapper">
-            <router-view />
+            <router-view v-if="!isLoading"/>
+            <clip-loader v-else/>
         </div>
     </div>
 </template>
 
 <script>
 import Header from "./components/Header";
-
+import ClipLoader from 'vue-spinner/src/ClipLoader.vue'
+import {mapState} from 'vuex'
 export default {
     components: {
-        "page-header": Header
+        "page-header": Header,
+        "clip-loader": ClipLoader
     },
     data() {
         return {};
@@ -22,6 +25,9 @@ export default {
     },
     methods: {
         
+    },
+    computed: {
+        ...mapState(['isLoading'])
     }
 };
 </script>

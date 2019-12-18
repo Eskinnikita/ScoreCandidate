@@ -4,6 +4,8 @@ import Login from '@/views/Login'
 import Home from '@/views/Home'
 import Rating from '@/views/Rating'
 import NotFound from '@/views/NotFound'
+import UserAdd from '@/views/Admin/UserAdd'
+import ResumeProcessing from '@/views/ResumeProcessing'
 import store from '../store/index'
 
 Vue.use(VueRouter)
@@ -22,6 +24,14 @@ const ifAuthenticated = (to, from, next) => {
     return
   }
   next('/login')
+}
+
+const isAdmin = (to, from, next) => {
+  if (store.getters.isAdmin) {
+    next()
+    return
+  }
+  next('/')
 }
 
 const routes = [
@@ -44,6 +54,18 @@ const routes = [
     component: Rating,
     beforeEnter: ifAuthenticated
 
+  },
+  {
+    path: '/processing',
+    name: 'ResumeProcessing',
+    component: ResumeProcessing,
+    beforeEnter: ifAuthenticated
+  },
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: UserAdd,
+    beforeEnter: isAdmin
   },
   {
     path: '*',
