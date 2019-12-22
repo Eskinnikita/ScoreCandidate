@@ -28,12 +28,20 @@
                 <span style="color: red; text-align: center; margin-top: 10px;" v-else>{{usersStore.error}}</span>
             </form>
         </div>
+        <users-list/>
     </div>
 </template>
 
 <script>
     import {mapState} from 'vuex'
+    import UsersList from "../../components/Admin/UsersList"
     export default {
+        components: {
+            'users-list': UsersList
+        },
+        created() {
+            this.$store.dispatch('getUsers')
+        },
         data() {
             return {
                 user: {
@@ -57,6 +65,10 @@
 </script>
 
 <style lang="scss" scoped>
+    .admin-panel {
+        display: flex;
+        justify-content: space-between;
+    }
     .admin-panel__user-add {
         width: 40%;
         min-width: 400px;

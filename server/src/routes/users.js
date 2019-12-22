@@ -58,4 +58,38 @@ router.get('/me/logout', auth, async (req, res) => {
     }
 })
 
+router.get('/all',async (req,res) => {
+    try {
+        const users = await User.find({}).select(['name', 'surname', 'email', 'isAdmin'])
+        if(users.length) {
+            res.status(200).json(users)
+        }
+        else {
+            res.status(404).json('Пользователи отсутствуют')
+        }
+    }
+    catch(err) {
+        res.status(500).json({error: err})
+    }
+})
+
+router.delete('/:userId', async(req, res) => {
+    try {
+        const id = req.params.userId;
+        const deletedUser = await User.remove({
+            _id: id
+        })
+        if (deletedUser) {
+            res.status(200).json(deletedUser)
+        } else {
+            res.status(404).json({
+                message: "Неверный id пользователя"
+            });
+        }
+    }
+    catch(err) {
+        res.status(500).json({error: err})
+    }
+})
+
 module.exports = router
