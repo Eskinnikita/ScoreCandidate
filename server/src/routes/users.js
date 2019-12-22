@@ -13,7 +13,7 @@ router.post('/', async (req, res) => {
         res.status(201).json({user, token})
     }
     catch(err) {
-        res.status(400).send({error: err})
+        res.status(400).send({message: err})
     }
 })
 
@@ -28,7 +28,7 @@ router.post('/login', async (req, res) => {
         const user = await User.findByCredentials(email, password)
         if (!user) {
             return res.status(401).send({
-                error: 'Login failed! Check authentication credentials'
+                message: 'Неверный логин или пароль'
             })
         }
         const token = await user.generateAuthToken()
@@ -37,7 +37,7 @@ router.post('/login', async (req, res) => {
             token
         })
     } catch (err) {
-        res.status(400).send({error: 'Ошибка авторизации'})
+        res.status(500).json({message: 'Ошибка авторизации'})
     }
 })
 
@@ -54,7 +54,7 @@ router.get('/me/logout', auth, async (req, res) => {
         res.send()
     }
     catch(err) {
-        res.status(500).json({error: err})
+        res.status(500).json({message: err})
     }
 })
 
@@ -65,11 +65,11 @@ router.get('/all',async (req,res) => {
             res.status(200).json(users)
         }
         else {
-            res.status(404).json('Пользователи отсутствуют')
+            res.status(404).json({message: 'Пользователи не найдены'})
         }
     }
     catch(err) {
-        res.status(500).json({error: err})
+        res.status(500).json({message: err})
     }
 })
 
@@ -88,7 +88,7 @@ router.delete('/:userId', async(req, res) => {
         }
     }
     catch(err) {
-        res.status(500).json({error: err})
+        res.status(500).json({message: err})
     }
 })
 

@@ -23,9 +23,9 @@
                     Администратор?
                     <input class="form__input" id="isAdmin" type="checkbox" v-model="user.isAdmin" />
                 </label>
-                <button class="form_submit-button" @click.prevent="addUser">Дабавить</button>
+                <button class="form_submit-button" @click.prevent="addUser">Добавить</button>
                 <span  style="color: green; text-align: center; margin-top: 10px;" v-if="usersStore.status">{{usersStore.status}}</span>
-                <span style="color: red; text-align: center; margin-top: 10px;" v-else>{{usersStore.error}}</span>
+                <error-handler v-else :error="usersStore.error"/>
             </form>
         </div>
         <users-list/>
@@ -35,9 +35,11 @@
 <script>
     import {mapState} from 'vuex'
     import UsersList from "../../components/Admin/UsersList"
+    import ErrorHandler from "../../components/UI/ErrorHandler"
     export default {
         components: {
-            'users-list': UsersList
+            'users-list': UsersList,
+            'error-handler': ErrorHandler
         },
         created() {
             this.$store.dispatch('getUsers')

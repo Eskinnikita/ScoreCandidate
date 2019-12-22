@@ -40,7 +40,7 @@ export const actions = {
                 commit('ADD_SUCCESS', 'Пользователь успешно добавлен')
             })
             .catch(err => {
-                commit('ADD_ERROR', err.error)
+                commit('ADD_ERROR', err.message = 'Ошибка добавления')
             })
     },
     getUsers({commit}) {

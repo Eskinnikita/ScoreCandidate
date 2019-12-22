@@ -1,7 +1,7 @@
 <template>
     <div class="user">
        <div class="user__name">
-           {{user.surname}} {{user.name}} <span class="user__admin" v-if="user.isAdmin">Администратор</span>
+           {{user.surname}} {{user.name}} {{user.email}} <span class="user__admin" v-if="user.isAdmin">Администратор</span>
        </div>
         <div class="user__buttons">
             <button class="delete-button" @click="deleteUser(user._id)">&nbsp;Удалить</button>

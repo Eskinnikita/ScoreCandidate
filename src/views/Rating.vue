@@ -2,9 +2,17 @@
     <div class="rating-test">
         <div class="rating-test__top">
             <h2>Оценка резюме {{ spec }}</h2>
-            <div>
-                <button class="rating-test__finish-button" v-if="isFinished" @click="goToProcessing">Перейти к обработке</button>
-                <span>оценено {{ratedResumeCount}} из {{resumeStore.testResume.length}}</span>
+            <div class="rating-test__top_right">
+                <div class="rating-test__process">
+                    <button v-if="isFinished" class="rating-test__finish-button" @click="goToProcessing">Перейти к
+                        обработке
+                    </button>
+                    <span v-else>оценено {{ratedResumeCount}} из {{resumeStore.testResume.length}}</span>
+                </div>
+                <div class="rating-test__rate-buttons">
+                    <dislike-button :onClick="logDislike"/>
+                    <like-button :onClick="logLike"/>
+                </div>
             </div>
         </div>
         <div class="resume-container">
@@ -18,10 +26,6 @@
                 ></div>
             </div>
             <resume :resume="currentResume"/>
-            <div class="rating-test__rate-buttons">
-                <dislike-button :onClick="logDislike"/>
-                <like-button :onClick="logLike"/>
-            </div>
         </div>
 
     </div>
@@ -58,7 +62,7 @@
                 this.goToNextResume()
             },
             goToNextResume() {
-                if(this.resumeStore.testResume.length - 1 !== this.currentResumeIndex) {
+                if (this.resumeStore.testResume.length - 1 !== this.currentResumeIndex) {
                     this.currentResumeIndex++
                 }
             },
@@ -76,11 +80,11 @@
             },
             ratedResumeCount() {
                 const sum = this.resumeStore.testResume.reduce((sum, resume) => {
-                    if(resume.approved != null) {
+                    if (resume.approved != null) {
                         sum += 1
                     }
                     return sum
-                },0)
+                }, 0)
                 console.log(sum)
                 return sum
             },
@@ -88,9 +92,7 @@
                 return this.ratedResumeCount === this.resumeStore.testResume.length
             }
         },
-        watch: {
-
-        }
+        watch: {}
     };
 </script>
 
@@ -98,6 +100,7 @@
     .resume-container {
         position: relative;
     }
+
     .progress {
         position: absolute;
         left: 0;
@@ -111,22 +114,27 @@
         padding: 0 15px;
         box-sizing: border-box;
     }
+
+    .rating-test__top_right {
+        @include flexSpaceBetween
+    }
+
     .rating-test__top {
         width: 80%;
         margin: 0 auto;
         @include flexSpaceBetween;
     }
+
     .rating-test__rate-buttons {
         @include flexSpaceBetween;
-        @include boxShadowBigBlur;
-        position: fixed;
-        right: 5%;
-        bottom: 10px;
-        /*width: 10%;*/
+        //@include boxShadowBigBlur;
+        /*position: fixed;*/
+        /*right: 5%;*/
+        /*bottom: 10px;*/
+        width: 10%;
         min-width: 140px;
         padding: 10px 0;
         box-sizing: border-box;
-        border-radius: $border-radius;
         z-index: 1000;
         background-color: #fff;
     }
@@ -139,12 +147,18 @@
         margin-right: 5px;
         cursor: pointer;
         transition: 0.3s;
+
         &:hover {
             opacity: 0.7;
         }
     }
+
     .rating-test__finish-button {
         @include button-dark;
         margin-right: 20px;
+    }
+
+    .rating-test__process {
+        margin-right: 10px;
     }
 </style>

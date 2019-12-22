@@ -6,6 +6,7 @@ import authService from '../../services/auth'
 export const state = {
     token: localStorage.getItem('user-token') || '',
     status: '',
+    error: '',
     user: {}
 }
 export const mutations = {
@@ -14,8 +15,8 @@ export const mutations = {
         state.token = user.token
         state.user = user.user
     },
-    AUTH_ERROR(state) {
-        state.status = 'error'
+    AUTH_ERROR(state, error) {
+        state.error = error
     },
     AUTH_LOGOUT(state) {
         state.token = null
@@ -26,17 +27,17 @@ export const mutations = {
     }
 }
 export const actions = {
-    authRequest({ commit, state }, data) {
+    authRequest({ commit}, data) {
+        commit('AUTH_ERROR', '')
         return authService.login(data)
             .then(res => {
-                state.error = ''
                 const user = {
                     token: res.data.token,
                     user: {}
                 }
                 const userParams = ['_id', 'name', 'surname', 'email', 'isAdmin']
                 for(let key in res.data.user) {
-                    if(userParams.indexOf(key) != -1) {
+                    if(userParams.indexOf(key) !== -1) {
                         user.user[key] = res.data.user[key]
                     }
                 }
@@ -45,7 +46,7 @@ export const actions = {
                 commit('AUTH_SUCCESS', user)
             })
             .catch(err => {
-                commit('AUTH_ERROR', err)
+                commit('AUTH_ERROR', err.message = 'Неверная почта или пароль')
                 localStorage.removeItem('user-token')
                 localStorage.removeItem('user-data')
             })
@@ -61,6 +62,5 @@ export const actions = {
 }
 export const getters = {
     isAuthenticated: state => !!state.token,
-    authStatus: state => state.status,
     isAdmin: state => state.user.isAdmin
 }
