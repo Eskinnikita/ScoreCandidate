@@ -1,13 +1,14 @@
 <template>
     <div id="header">
         <div class="wrapper">
-            <span class="title" @click="toHomePage">Score Candidate <i class="fas fa-file"></i></span>
+            <span class="title" @click="toHomePage">Score Candidate</span>
             <div>
-                <button class="header__admin-link" v-if="isAdminPage" @click="goToAdminPage">Добавить пользователя</button>
-                <span v-if="hasToken" class="username link-button">
+                <span class="user-container">
+                    <span v-if="hasToken" class="username link-button" @click="showUserMenu">
                     {{authStore.user.surname}} {{authStore.user.name}}
+                    </span>
+                    <user-menu ref="userMenu"/>
                 </span>
-                <button class="link-button" v-if="hasToken" @click="logout">выйти</button>
             </div>
         </div>
     </div>
@@ -15,7 +16,11 @@
 
 <script>
 import { mapState } from "vuex";
+import userMenu from "./UI/userMenu"
 export default {
+    components: {
+        'user-menu': userMenu
+    },
     data() {
         return {};
     },
@@ -25,18 +30,8 @@ export default {
         toHomePage() {
             this.$router.replace("/", () => {});
         },
-        logout() {
-            this.$store
-                .dispatch("authLogout")
-                .then(() => {
-                    this.$router.push({ path: "/login" }, () => {});
-                })
-                .catch(err => {
-                    console.log(err.message);
-                });
-        },
-        goToAdminPage() {
-            this.$router.push('/admin')
+        showUserMenu() {
+            this.$refs.userMenu.toggleMenu()
         }
     },
     computed: {
@@ -46,9 +41,6 @@ export default {
         },
         isAdmin() {
             return this.$store.getters.isAdmin
-        },
-        isAdminPage() {
-            return this.isAdmin && this.$route.name !== 'Admin'
         }
     }
 };
@@ -75,6 +67,7 @@ export default {
     }
 
     .username {
+        position: relative;
         padding: 0 10px;
     }
 
@@ -82,6 +75,10 @@ export default {
         @include button-light;
         padding: 5px;
         font-size: 12px;
+    }
+
+    .user-container {
+        position: relative;
     }
 }
 

@@ -105,12 +105,12 @@ $wrapper-width: 1140px;
     }
 }
 
-@mixin ratingButton($color) {
+@mixin ratingButton {
     //color: #fff;
     width: 50px;
     height: 50px;
-    color: $color;
-    border: 3px solid $color;
+    //color: $color;
+    //border: 3px solid $color;
     border-radius: $border-radius;
      //border-radius: 50%;
     display: flex;
@@ -122,8 +122,9 @@ $wrapper-width: 1140px;
     transition: 0.2s;
     margin: 0 10px;
     &:hover {
-        background-color: $color;
-        color: #fff;
+        //background-color: $color;
+        //color: #fff;
+        transform: scale(1.05);
     }
     &:active {
         opacity: 0.9;

@@ -23,7 +23,6 @@ export const mutations = {
     },
 
     SET_USERS(state, users) {
-        console.log(users)
         state.users = users
     },
     REMOVE_USER(state, id) {
@@ -46,7 +45,6 @@ export const actions = {
     getUsers({commit}) {
         return usersService.getUsers()
             .then(res => {
-                console.log(res)
                 commit('SET_USERS', res.data)
             })
             .catch(err => {

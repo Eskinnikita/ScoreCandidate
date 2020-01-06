@@ -58,6 +58,13 @@
         methods: {
             addUser() {
                 this.$store.dispatch('addUser', this.user)
+                this.user = {
+                    surname: '',
+                    name: '',
+                    email: '',
+                    password: '',
+                    isAdmin: false
+                }
             }
         },
         computed: {

@@ -10,8 +10,8 @@
                     <span v-else>оценено {{ratedResumeCount}} из {{resumeStore.testResume.length}}</span>
                 </div>
                 <div class="rating-test__rate-buttons">
-                    <dislike-button :onClick="logDislike"/>
-                    <like-button :onClick="logLike"/>
+                    <rate-button :color="'red'" :icon="'far fa-thumbs-down'" :onClick="logDislike"/>
+                    <rate-button :color="'green'" :icon="'far fa-thumbs-up'" :onClick="logLike"/>
                 </div>
             </div>
         </div>
@@ -34,14 +34,16 @@
 <script>
     import {mapState} from 'vuex'
     import Resume from "../components/Global/Resume";
-    import likeButton from "../components/UI/likeButton";
-    import dislikeButton from "../components/UI/dislikeButton";
+    // import likeButton from "../components/UI/likeButton";
+    // import dislikeButton from "../components/UI/dislikeButton";
+    import rateButton from "../components/UI/rateButton";
 
     export default {
         components: {
             resume: Resume,
-            "like-button": likeButton,
-            "dislike-button": dislikeButton
+            // "like-button": likeButton,
+            // "dislike-button": dislikeButton,
+            "rate-button": rateButton
         },
         data() {
             return {
