@@ -10,12 +10,24 @@ $wrapper-width: 1140px;
 
 //mixins
 
+@mixin tabs {
+    font-size: 18px;
+    //font-weight: bold;
+    padding: 7px;
+    color: #2c3e50;
+    border-radius: $border-radius;
+    background-color: transparent;
+    //border: 1px solid $main-color;
+    cursor: pointer;
+    border: 1px solid #2c3e50;
+}
+
 @mixin boxShadowBigBlur {
-    -webkit-box-shadow: 0 0px 28px rgba(0, 0, 0, 0.15),
+    -webkit-box-shadow: 0 0px 10px rgba(0, 0, 0, 0.15),
         0 10px 10px rgba(0, 0, 0, 0.12);
-    -moz-box-shadow: 0 0px 28px rgba(0, 0, 0, 0.15),
+    -moz-box-shadow: 0 0px 10px rgba(0, 0, 0, 0.15),
         0 10px 10px rgba(0, 0, 0, 0.12);
-    box-shadow: 0 0px 28px rgba(0, 0, 0, 0.15), 0 10px 10px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.15), 0 10px 10px rgba(0, 0, 0, 0.12);
 }
 
 @mixin scaleHover {

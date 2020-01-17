@@ -1,23 +1,39 @@
+import resume from '../../services/resume'
 export const state = {
-    testResume: [
-        {name:'Петров Иван Васильевич', approved: null},
-        {name:'Иванов Игорь Иванович', approved: null},
-        {name:'Шевцов Петр Афанасьевич', approved: null},
-        {name:'Жнецова Евгения Игоревна', approved: null}
-    ]
+    allResumes: [],
+    recommendedResumes: [],
+    errors: [],
+    resumeToRate: {},
+    currentSpec: ''
 }
 export const mutations = {
-    APPROVE_RESUME(state, {index, status}) {
-        state.testResume[index].approved = status
+    SET_ALLRESUMES(state, resumes) {
+        state.allResumes = resumes.objects
     },
-    RESET_APPROVE(state) {
-        state.testResume.forEach(el => {
-            el.approved = null
-        })
+    SET_ERRORS(state, error) {
+        state.errors.push(error)
+    },
+    SET_RESUME_TO_RATE(state, resume) {
+        state.resumeToRate = resume
+    },
+    SET_CURRENT_SPEC(state, keyword) {
+        state.currentSpec = keyword
     }
 }
 export const actions = {
-    
+    getResumes({commit}, data) {
+        commit('START_LOADING', 'Собираем резюме...')
+        commit('SET_CURRENT_SPEC', data.keyword)
+        return resume.findByKeyword(data.keyword)
+            .then(res => {
+                commit('SET_ALLRESUMES', res.data)
+                commit('FINISH_LOADING')
+            })
+            .catch(err => {
+                commit('SET_ERRORS', err)
+                commit('FINISH_LOADING')
+            })
+    }
 }
 export const getters = {
     

@@ -5,7 +5,8 @@ import Home from '@/views/Home'
 import Rating from '@/views/Rating'
 import NotFound from '@/views/NotFound'
 import UserAdd from '@/views/Admin/UserAdd'
-import ResumeProcessing from '@/views/ResumeProcessing'
+import RatedResume from "../views/RatedResume"
+import ResumeList from "../views/ResumeList"
 import store from '../store/index'
 
 Vue.use(VueRouter)
@@ -48,7 +49,7 @@ const routes = [
     beforeEnter: ifNotAuthenticated
   },
   {
-    path: '/profession/:spec',
+    path: '/rating',
     name: 'Rating',
     props: true,
     component: Rating,
@@ -56,9 +57,9 @@ const routes = [
 
   },
   {
-    path: '/processing',
-    name: 'ResumeProcessing',
-    component: ResumeProcessing,
+    path: '/rated-resume',
+    name: 'RatedResume',
+    component: RatedResume,
     beforeEnter: ifAuthenticated
   },
   {
@@ -66,6 +67,14 @@ const routes = [
     name: 'Admin',
     component: UserAdd,
     beforeEnter: isAdmin
+  },
+  {
+    path: '/resumes/:spec',
+    name: 'ResumeList',
+    props: true,
+    component: ResumeList,
+    meta: { transition: 'fade-in-right' },
+    beforeEnter: ifAuthenticated
   },
   {
     path: '*',

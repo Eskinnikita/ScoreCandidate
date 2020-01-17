@@ -1,9 +1,14 @@
 <template>
     <div id="app">
         <page-header/>
-        <div class="wrapper">
-            <router-view v-if="!isLoading"/>
-            <clip-loader v-else/>
+        <div class="loading" v-show="loading">
+            <clip-loader/>
+            <h2 class="loading__message">{{loaderMessage}}</h2>
+        </div>
+        <div class="wrapper" v-show="!loading">
+                <transition name="fade">
+                    <router-view/>
+                </transition>
         </div>
     </div>
 </template>
@@ -26,7 +31,7 @@
         },
         methods: {},
         computed: {
-            ...mapState(['isLoading'])
+            ...mapState(['loading', 'loaderMessage'])
         }
     };
 </script>
@@ -45,7 +50,31 @@
         padding: 0 10px;
     }
 
+    .loading {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 17%;
+    }
+
+    .loading__message {
+        margin-top: 30px;
+    }
+
     button {
         border: none;
+    }
+
+    .fade-enter-active, .fade-leave-active {
+        transition-property: opacity;
+        transition-duration: .25s;
+    }
+
+    .fade-enter-active {
+        transition-delay: .25s;
+    }
+
+    .fade-enter, .fade-leave-active {
+        opacity: 0
     }
 </style>

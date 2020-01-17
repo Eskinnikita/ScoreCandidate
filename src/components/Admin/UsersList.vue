@@ -1,6 +1,10 @@
 <template>
     <div class="users-list">
-        <user v-for="(user, index) in users" :key="index" :user="user"/>
+        <user
+                v-for="(user, index) in users"
+                :key="index"
+                :user="user"
+        />
     </div>
 </template>
 
@@ -20,7 +24,7 @@
             this.$store.dispatch('getUsers')
         },
         computed: {
-            ...mapState(['usersStore']),
+            ...mapState(['usersStore', 'authStore']),
             users() {
                 return this.usersStore.users
             }

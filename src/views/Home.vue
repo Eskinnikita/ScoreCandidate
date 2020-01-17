@@ -24,15 +24,16 @@ export default {
                 { title: "Java-разработчик", uri: "java", iconClass: "fab fa-java"},
                 { title: "Python-разработчик", uri: "python", iconClass: "fab fa-python" },
                 { title: "JavaScript-разработчик", uri: "javascript", iconClass: "fab fa-js-square" },
-                { title: "Аналитик", uri: "analytics", iconClass: "fas fa-laptop"},
-                { title: "Опытный пользователь ПК", uri: "pc-user", iconClass: "fas fa-laptop" }
+                { title: "Angular-разработчик", uri: "angular", iconClass: "fab fa-angular" },
+                { title: "React-разработчик", uri: "react", iconClass: "fab fa-react" },
+                { title: "Vue-разработчик", uri: "vue", iconClass: "fab fa-vuejs" }
             ]
         };
     },
     methods: {
         goToRating(uri) {
             console.log(uri)
-            this.$router.push({path: `/profession/${uri}`})
+            this.$router.push({path: `/resumes/${uri}`})
         }
     }
 };

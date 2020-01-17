@@ -3,6 +3,11 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import axios from 'axios'
+import VuePageTransition from 'vue-page-transition'
+import VModal from 'vue-js-modal'
+
+Vue.use(VModal)
+Vue.use(VuePageTransition)
 
 Vue.config.productionTip = false
 

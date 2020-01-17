@@ -1,60 +1,40 @@
 <template>
     <div class="rating-test">
         <div class="rating-test__top">
-            <h2>Оценка резюме {{ spec }}</h2>
-            <div class="rating-test__top_right">
-                <div class="rating-test__process">
-                    <button v-if="isFinished" class="rating-test__finish-button" @click="goToProcessing">Перейти к
-                        обработке
-                    </button>
-                    <span v-else>оценено {{ratedResumeCount}} из {{resumeStore.testResume.length}}</span>
-                </div>
-                <div class="rating-test__rate-buttons">
-                    <rate-button :color="'red'" :icon="'far fa-thumbs-down'" :onClick="logDislike"/>
-                    <rate-button :color="'green'" :icon="'far fa-thumbs-up'" :onClick="logLike"/>
-                </div>
+            <button class="back-button" @click="backToResumeList">Вернуться к списку</button>
+            <div class="rating-test__rate-buttons">
+                <rate-button :color="'red'" :icon="'far fa-thumbs-down'" :onClick="logDislike"/>
+                <rate-button :color="'green'" :icon="'far fa-thumbs-up'" :onClick="logLike"/>
             </div>
         </div>
         <div class="resume-container">
-            <div class="progress">
-                <div
-                        class="progress__indicator"
-                        v-for="(indicator, index) in resumeStore.testResume"
-                        :key="index"
-                        @click="selectResume(index)"
-                        :style="{backgroundColor: indicator.approved ? 'green' : indicator.approved == null ? 'transparent' : 'red'}"
-                ></div>
-            </div>
-            <resume :resume="currentResume"/>
+            <resume :resume="resumeStore.resumeToRate"/>
         </div>
-
     </div>
 </template>
 
 <script>
     import {mapState} from 'vuex'
     import Resume from "../components/Global/Resume";
-    // import likeButton from "../components/UI/likeButton";
-    // import dislikeButton from "../components/UI/dislikeButton";
     import rateButton from "../components/UI/rateButton";
 
     export default {
         components: {
-            resume: Resume,
-            // "like-button": likeButton,
-            // "dislike-button": dislikeButton,
-            "rate-button": rateButton
+            'resume': Resume,
+            'rate-button': rateButton
         },
         data() {
             return {
-                spec: this.$route.params.spec,
                 currentResumeIndex: 0
             };
         },
         created() {
-            this.$store.commit('RESET_APPROVE')
+
         },
         methods: {
+            backToResumeList() {
+                this.$router.push(`/resumes/${this.resumeStore.currentSpec}`)
+            },
             logLike() {
                 this.$store.commit('APPROVE_RESUME', {index: this.currentResumeIndex, status: true});
                 this.goToNextResume()
@@ -64,35 +44,10 @@
                 this.goToNextResume()
             },
             goToNextResume() {
-                if (this.resumeStore.testResume.length - 1 !== this.currentResumeIndex) {
-                    this.currentResumeIndex++
-                }
-            },
-            goToProcessing() {
-                this.$router.push('/processing')
-            },
-            selectResume(index) {
-                this.currentResumeIndex = index
             }
         },
         computed: {
-            ...mapState(['resumeStore']),
-            currentResume() {
-                return this.resumeStore.testResume[this.currentResumeIndex]
-            },
-            ratedResumeCount() {
-                const sum = this.resumeStore.testResume.reduce((sum, resume) => {
-                    if (resume.approved != null) {
-                        sum += 1
-                    }
-                    return sum
-                }, 0)
-                console.log(sum)
-                return sum
-            },
-            isFinished() {
-                return this.ratedResumeCount === this.resumeStore.testResume.length
-            }
+            ...mapState(['resumeStore'])
         },
         watch: {}
     };
@@ -141,20 +96,6 @@
         background-color: #fff;
     }
 
-    .progress__indicator {
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        margin-bottom: 5px;
-        margin-right: 5px;
-        cursor: pointer;
-        transition: 0.3s;
-
-        &:hover {
-            opacity: 0.7;
-        }
-    }
-
     .rating-test__finish-button {
         @include button-dark;
         margin-right: 20px;
@@ -162,5 +103,9 @@
 
     .rating-test__process {
         margin-right: 10px;
+    }
+
+    .back-button {
+        @include button-dark;
     }
 </style>
