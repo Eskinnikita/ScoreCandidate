@@ -1,8 +1,8 @@
 <template>
-    <div>
-        TUT TIPO RESUME LEZHAT
-        <resume-snippet
-                v-for="(resume, index) in resumeStore.approvedResume"
+    <div class="rated-resume">
+        <h2 class="rated-resume__title">Просмотренные резюме</h2>
+        <resume-snippet-rated
+                v-for="(resume, index) in this.resumeStore.approvedResume"
                 :key="index"
                 :resume="resume"
         />
@@ -11,10 +11,10 @@
 
 <script>
     import {mapState} from 'vuex'
-    import ResumeSnippet from "../components/Global/ResumeSnippet"
+    import ResumeSnippetRated from "../components/Global/ResumeSnippetRated"
     export default {
         components: {
-            'resume-snippet': ResumeSnippet
+            'resume-snippet-rated': ResumeSnippetRated
         },
         created() {
             let idsString = ''
@@ -28,6 +28,8 @@
 
             }
         },
+        methods: {
+        },
         computed: {
             ...mapState(['resumeStore', 'authStore'])
         }
@@ -35,5 +37,9 @@
 </script>
 
 <style scoped>
-
+    .rated-resume {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
 </style>

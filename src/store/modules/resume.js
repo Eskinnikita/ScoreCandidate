@@ -7,7 +7,8 @@ export const state = {
     errors: [],
     resumeToRate: {},
     currentSpec: '',
-    approvedResume: []
+    approvedResume: [],
+    usersResumeStatus: []
 }
 export const mutations = {
     INITIALIZE_ALLRESUMES(state) {
@@ -26,8 +27,12 @@ export const mutations = {
     SET_CURRENT_SPEC(state, keyword) {
         state.currentSpec = keyword
     },
-    SET_APPROVED_RESUME(state, resumes) {
-        state.approvedResume = resumes
+    SET_APPROVED_RESUME(state, data) {
+        console.log(data)
+        state.approvedResume = data.reverse()
+    },
+    SET_RESUME_WITH_STATUS(state, data) {
+        state.usersResumeStatus = data
     }
 }
 export const actions = {
@@ -70,6 +75,8 @@ export const actions = {
         commit('START_LOADING', 'Ищем резюме...')
         return users.getRatedResumeById(data.userId)
             .then(res => {
+                const usersInfo = res.data.approvedResume
+                commit('SET_RESUME_WITH_STATUS', usersInfo)
                 let idsString = ''
                 res.data.approvedResume.forEach(el => {
                     idsString += `ids[]=${el.resumeId}&`
@@ -85,7 +92,6 @@ export const actions = {
                     })
             })
             .catch(err => {
-                    console.log(err)
                     commit('SET_ERRORS', err)
                     commit('FINISH_LOADING')
                 }

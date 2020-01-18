@@ -8,8 +8,6 @@ export default {
         return superJobApi.get(`/resumes?ids[]=${id}`)
     },
     findByIdsArray(ids) {
-        console.log(ids)
-        console.log('query', `/resumes?`+ids)
         return superJobApi.get(`/resumes?` + ids)
     }
 }
