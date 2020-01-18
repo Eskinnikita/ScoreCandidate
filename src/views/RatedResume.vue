@@ -21,7 +21,7 @@
             this.authStore.user.approvedResume.forEach(el => {
                 idsString += `ids[]=${el.id}&`
             })
-            this.$store.dispatch('getApprovedResume', idsString)
+            this.$store.dispatch('getApprovedResume', {searchString: idsString, userId: this.authStore.user._id})
         },
         data() {
             return {

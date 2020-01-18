@@ -8,6 +8,7 @@ const morgan = require('morgan')
 const port = process.env.PORT
 
 const usersRouter = require('./routes/users')
+const ratedResumesRouter = require('./routes/resumes')
 
 require('./db/db')
 
@@ -22,6 +23,7 @@ app.use(bodyParser.json())
 app.use(cors())
 
 app.use('/users', usersRouter)
+app.use('/rated-resumes', ratedResumesRouter)
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`)

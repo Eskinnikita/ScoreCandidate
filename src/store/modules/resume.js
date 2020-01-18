@@ -68,17 +68,28 @@ export const actions = {
     },
     getApprovedResume({commit}, data) {
         commit('START_LOADING', 'Ищем резюме...')
-        return resume.findByIdsArray(data)
+        return users.getRatedResumeById(data.userId)
             .then(res => {
-                console.log(res.data)
-                commit('FINISH_LOADING')
+                let idsString = ''
+                res.data.approvedResume.forEach(el => {
+                    idsString += `ids[]=${el.resumeId}&`
+                })
+                return resume.findByIdsArray(idsString)
+                    .then(res => {
+                        commit('SET_APPROVED_RESUME', res.data.objects)
+                        commit('FINISH_LOADING')
+                    })
+                    .catch(err => {
+                        commit('SET_ERRORS', err)
+                        commit('FINISH_LOADING')
+                    })
             })
             .catch(err => {
-                commit('SET_ERRORS', err)
-                commit('FINISH_LOADING')
-            })
+                    console.log(err)
+                    commit('SET_ERRORS', err)
+                    commit('FINISH_LOADING')
+                }
+            )
     }
 }
-export const getters = {
-    
-}
+export const getters = {}
