@@ -48,10 +48,11 @@
             },
             goToAdminPage() {
                 this.closeMenu()
-                this.$router.push('/admin')
+                this.$router.push({path: '/admin'})
             },
             goToRatedResume() {
-                this.$router.push('rated-resume')
+                this.closeMenu()
+                this.$router.push({path: '/rated-resume'})
             }
         },
         computed: {

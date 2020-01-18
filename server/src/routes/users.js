@@ -92,4 +92,20 @@ router.delete('/:userId', async(req, res) => {
     }
 })
 
+router.post('/rated-resume', async(req,res) => {
+    try {
+        const userId = req.body.userId
+        const resumeInfo = {
+            id: req.body.resumeId,
+            status: req.body.status
+        }
+
+        await User.findOneAndUpdate({_id: userId}, {$push: {approvedResume: resumeInfo}})
+        res.status(200).json({message: 'Резюме успешно добавлено'})
+    }
+    catch(err) {
+        res.status(500).json({message: err})
+    }
+})
+
 module.exports = router

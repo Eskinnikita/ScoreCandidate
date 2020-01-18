@@ -1,13 +1,20 @@
 import resume from '../../services/resume'
+import users from '../../services/users'
+
 export const state = {
     allResumes: [],
     recommendedResumes: [],
     errors: [],
     resumeToRate: {},
-    currentSpec: ''
+    currentSpec: '',
+    approvedResume: []
 }
 export const mutations = {
+    INITIALIZE_ALLRESUMES(state) {
+        state.allResumes = JSON.parse(localStorage.getItem('all-resumes'))
+    },
     SET_ALLRESUMES(state, resumes) {
+        localStorage.setItem('all-resumes', JSON.stringify(resumes.objects))
         state.allResumes = resumes.objects
     },
     SET_ERRORS(state, error) {
@@ -18,6 +25,9 @@ export const mutations = {
     },
     SET_CURRENT_SPEC(state, keyword) {
         state.currentSpec = keyword
+    },
+    SET_APPROVED_RESUME(state, resumes) {
+        state.approvedResume = resumes
     }
 }
 export const actions = {
@@ -27,6 +37,40 @@ export const actions = {
         return resume.findByKeyword(data.keyword)
             .then(res => {
                 commit('SET_ALLRESUMES', res.data)
+                commit('FINISH_LOADING')
+            })
+            .catch(err => {
+                commit('SET_ERRORS', err)
+                commit('FINISH_LOADING')
+            })
+    },
+    getResumeById({commit}, data) {
+        commit('START_LOADING', 'Ищем резюме...')
+        return resume.findById(data.id)
+            .then(res => {
+                commit('SET_RESUME_TO_RATE', res.data.objects[0])
+                commit('FINISH_LOADING')
+            })
+            .catch(err => {
+                commit('SET_ERRORS', err)
+                commit('FINISH_LOADING')
+            })
+    },
+    addResumeToRated({commit}, data) {
+        console.log(data)
+        return users.addResumeToRated(data)
+            .then(res => {
+                console.log('Успешно добавлено', res)
+            })
+            .catch(err => {
+                commit('SET_ERRORS', err)
+            })
+    },
+    getApprovedResume({commit}, data) {
+        commit('START_LOADING', 'Ищем резюме...')
+        return resume.findByIdsArray(data)
+            .then(res => {
+                console.log(res.data)
                 commit('FINISH_LOADING')
             })
             .catch(err => {

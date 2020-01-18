@@ -30,6 +30,7 @@
             }
         },
         created() {
+            localStorage.setItem('current-spec', this.spec)
             this.$store.dispatch('getResumes', {keyword: this.spec})
         },
         methods: {

@@ -31,6 +31,14 @@ const userSchema = mongoose.Schema({
         type: Boolean,
         required: true
     },
+    approvedResume: {
+        type: [{
+            id: Number,
+            status: Boolean
+        }],
+        default : [],
+        required: true
+    },
     tokens: [{
         token: {
             type: String,

@@ -13,12 +13,10 @@ export default new Vuex.Store({
   },
   mutations: {
     START_LOADING(state, message) {
-      console.log('start loading')
       state.loaderMessage = message
       state.loading = true
     },
     FINISH_LOADING(state) {
-      console.log('end loading')
       state.loaderMessage = ''
       state.loading = false
     }

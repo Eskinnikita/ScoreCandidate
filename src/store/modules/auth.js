@@ -35,7 +35,7 @@ export const actions = {
                     token: res.data.token,
                     user: {}
                 }
-                const userParams = ['_id', 'name', 'surname', 'email', 'isAdmin']
+                const userParams = ['_id', 'name', 'surname', 'email', 'isAdmin', 'approvedResume']
                 for(let key in res.data.user) {
                     if(userParams.indexOf(key) !== -1) {
                         user.user[key] = res.data.user[key]

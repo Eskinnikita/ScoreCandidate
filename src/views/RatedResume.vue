@@ -1,7 +1,8 @@
 <template>
     <div>
+        TUT TIPO RESUME LEZHAT
         <resume-snippet
-                v-for="(resume, index) in approvedResume"
+                v-for="(resume, index) in resumeStore.approvedResume"
                 :key="index"
                 :resume="resume"
         />
@@ -15,18 +16,20 @@
         components: {
             'resume-snippet': ResumeSnippet
         },
+        created() {
+            let idsString = ''
+            this.authStore.user.approvedResume.forEach(el => {
+                idsString += `ids[]=${el.id}&`
+            })
+            this.$store.dispatch('getApprovedResume', idsString)
+        },
         data() {
             return {
 
             }
         },
         computed: {
-            ...mapState(['resumeStore']),
-            approvedResume() {
-                return this.resumeStore.testResume.filter(resume => {
-                    return resume.approved !== null && resume.approved !== undefined
-                })
-            }
+            ...mapState(['resumeStore', 'authStore'])
         }
     }
 </script>

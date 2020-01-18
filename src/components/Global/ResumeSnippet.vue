@@ -25,7 +25,9 @@
         methods: {
             setResumeToRate() {
                 this.$store.commit('SET_RESUME_TO_RATE', this.resume)
-                this.$router.push('/rating')
+                // this.$store.dispatch('getResumeById', {resume: this.resume})
+                // this.$router.push(`/rating/${this.resume.id}`)
+                this.$router.push(`/rating`)
             }
         }
     }
