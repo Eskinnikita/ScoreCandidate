@@ -43,7 +43,8 @@
     .resume-snippet {
         position: relative;
         width: 600px;
-        height: 100px;
+        min-height: 100px;
+        height: auto;
         margin-bottom: 40px;
         color: #000;
         padding: 15px;

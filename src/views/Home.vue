@@ -21,12 +21,15 @@ export default {
     data() {
         return {
             specs: [
-                { title: "Java-разработчик", uri: "java", iconClass: "fab fa-java"},
-                { title: "Python-разработчик", uri: "python", iconClass: "fab fa-python" },
-                { title: "JavaScript-разработчик", uri: "javascript", iconClass: "fab fa-js-square" },
-                { title: "Angular-разработчик", uri: "angular", iconClass: "fab fa-angular" },
-                { title: "React-разработчик", uri: "react", iconClass: "fab fa-react" },
-                { title: "Vue-разработчик", uri: "vue", iconClass: "fab fa-vuejs" }
+                { title: "Java-разработчики", uri: "java", iconClass: "fab fa-java"},
+                { title: "Python-разработчики", uri: "python", iconClass: "fab fa-python" },
+                { title: "JavaScript-разработчики", uri: "javascript", iconClass: "fab fa-js-square" },
+                { title: "Angular-разработчики", uri: "angular", iconClass: "fab fa-angular" },
+                { title: "React-разработчики", uri: "react", iconClass: "fab fa-react" },
+                { title: "VueJS-разработчики", uri: "vue", iconClass: "fab fa-vuejs" },
+                { title: "PHP-разработчики", uri: "php", iconClass: "fab fa-php" },
+                { title: "NODE.JS-разработчики", uri: "nodejs", iconClass: "fab fa-node-js" },
+                { title: "Android-разработчики", uri: "android", iconClass: "fab fa-android" }
             ]
         };
     },

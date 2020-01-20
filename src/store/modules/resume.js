@@ -38,17 +38,43 @@ export const mutations = {
 export const actions = {
     getResumes({commit}, data) {
         commit('START_LOADING', 'Собираем резюме...')
-        commit('SET_CURRENT_SPEC', data.keyword)
-        return resume.findByKeyword(data.keyword)
+        return users.getRatedResumeById(data.userId)
             .then(res => {
-                commit('SET_ALLRESUMES', res.data)
-                commit('FINISH_LOADING')
+                const usersInfo = res.data.approvedResume
+                commit('SET_RESUME_WITH_STATUS', usersInfo)
+                let idsString = ''
+                res.data.approvedResume.forEach(el => {
+                    idsString += `exclude_ids[]=${el.resumeId}&`
+                })
+                return resume.findByKeyword({keyword: data.keyword, excludedResumes: idsString})
+                        .then(res => {
+                            commit('SET_ALLRESUMES', res.data)
+                            commit('FINISH_LOADING')
+                        })
+                        .catch(err => {
+                            commit('SET_ERRORS', err)
+                            commit('FINISH_LOADING')
+                        })
             })
             .catch(err => {
-                commit('SET_ERRORS', err)
-                commit('FINISH_LOADING')
-            })
+                    commit('SET_ERRORS', err)
+                    commit('FINISH_LOADING')
+                }
+            )
     },
+    // getResumes({commit}, data) {
+    //     commit('START_LOADING', 'Собираем резюме...')
+    //     commit('SET_CURRENT_SPEC', data.keyword)
+    //     return resume.findByKeyword(data.keyword)
+    //         .then(res => {
+    //             commit('SET_ALLRESUMES', res.data)
+    //             commit('FINISH_LOADING')
+    //         })
+    //         .catch(err => {
+    //             commit('SET_ERRORS', err)
+    //             commit('FINISH_LOADING')
+    //         })
+    // },
     getResumeById({commit}, data) {
         commit('START_LOADING', 'Ищем резюме...')
         return resume.findById(data.id)

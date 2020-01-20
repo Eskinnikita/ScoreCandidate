@@ -1,11 +1,15 @@
 <template>
     <div class="rated-resume">
         <h2 class="rated-resume__title">Просмотренные резюме</h2>
-        <resume-snippet-rated
-                v-for="(resume, index) in this.resumeStore.approvedResume"
-                :key="index"
-                :resume="resume"
-        />
+        <input type="text" v-model="search" class="rated-resume__search" placeholder="Поиск">
+        <div class="resumes-container" v-if="filteredResumes.length">
+            <resume-snippet-rated
+                    v-for="(resume, index) in filteredResumes"
+                    :key="index"
+                    :resume="resume"
+            />
+        </div>
+        <h3 v-else>Ничего не найдено...&nbsp;<i class="fas fa-ghost"></i></h3>
     </div>
 </template>
 
@@ -25,21 +29,31 @@
         },
         data() {
             return {
-
+                search: ''
             }
         },
         methods: {
         },
         computed: {
-            ...mapState(['resumeStore', 'authStore'])
+            ...mapState(['resumeStore', 'authStore']),
+            filteredResumes() {
+                return this.resumeStore.approvedResume.filter(el => {
+                    return el.profession.toLowerCase().includes(this.search.toLowerCase())
+                })
+            }
         }
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
     .rated-resume {
         display: flex;
         align-items: center;
         flex-direction: column;
+    }
+
+    .rated-resume__search {
+        @include input;
+        width: 600px;
     }
 </style>

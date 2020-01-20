@@ -9,9 +9,7 @@
         </div>
         <div class="ration-test__bottom">
             <div class="resume-container" v-if="!resumeIsOver">
-                <transition name="slide-fade">
-                    <resume :resume="resumeStore.resumeToRate"/>
-                </transition>
+                        <resume :resume="resumeStore.resumeToRate"/>
             </div>
             <div class="message-container" v-else>
                 <h2>Резюме закончились... Загрузить еще?</h2>

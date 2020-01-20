@@ -1,4 +1,5 @@
 <template>
+
     <div class="resume">
         <div class="resume__header">
             <div class="resume__header-wrapper">
@@ -197,3 +198,5 @@
         margin-top: 15px;
     }
 </style>
+
+

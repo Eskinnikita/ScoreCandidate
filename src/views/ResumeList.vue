@@ -31,7 +31,9 @@
         },
         created() {
             localStorage.setItem('current-spec', this.spec)
-            this.$store.dispatch('getResumes', {keyword: this.spec})
+            // this.$store.dispatch('getApprovedResume', {userId: this.authStore.user._id})
+            // this.$store.dispatch('getApprovedResumeForException', this.authStore.user._id)
+            this.$store.dispatch('getResumes', {keyword: this.spec, userId: this.authStore.user._id})
         },
         methods: {
             toggleToAll() {
@@ -44,7 +46,7 @@
             }
         },
         computed: {
-            ...mapState(['resumeStore'])
+            ...mapState(['resumeStore', 'authStore'])
         }
     }
 </script>

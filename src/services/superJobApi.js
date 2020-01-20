@@ -4,7 +4,7 @@ const apiKey = 'v3.r.129684112.f4daf6fe33d8e656e6a7da49f6850c048b9ce513.5c364789
 
 
 const superJobApiClient = axios.create({
-    baseURL: 'https://api.superjob.ru/2.0',
+    baseURL: 'https://api.superjob.ru/2.30',
     withCredentials: false,
     headers: {
         Accept: 'application/json',
