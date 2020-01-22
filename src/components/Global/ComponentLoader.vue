@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div class="loading">
         <clip-loader/>
-        <h2 class="loading__message">{{loaderMessage}}</h2>
+        <h2 class="loading__message">{{message}}</h2>
     </div>
 </template>
 
@@ -13,8 +13,15 @@
         components: {
             "clip-loader": ClipLoader
         },
+        props: {
+            message: String
+        },
+        created() {
+
+        },
         data() {
             return {
+
             };
         },
         methods: {},
@@ -29,7 +36,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding-top: 17%;
+        /*padding-top: 50%;*/
     }
 
     .loading__message {

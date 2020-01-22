@@ -16,7 +16,7 @@ const RatedResumeSchema = mongoose.Schema({
         }],
         default : [],
         required: true
-    },
+    }
 })
 
 

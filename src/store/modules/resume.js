@@ -33,6 +33,9 @@ export const mutations = {
     },
     SET_RESUME_WITH_STATUS(state, data) {
         state.usersResumeStatus = data
+    },
+    SET_RECOMMENDED_RESUMES(state, resumes) {
+        state.recommendedResumes = resumes.objects
     }
 }
 export const actions = {
@@ -122,6 +125,19 @@ export const actions = {
                     commit('FINISH_LOADING')
                 }
             )
+    },
+    getRecommendedResume({commit, state}, data) {
+        let idsString = ''
+        state.approvedResume.forEach(el => {
+            idsString += `exclude_ids[]=${el.resumeId}&`
+        })
+        return resume.findRecommended({keyword: data.keyword, excludedResumes: idsString})
+            .then(res => {
+                commit('SET_RECOMMENDED_RESUMES', res.data)
+            })
+            .catch(err => {
+                commit('SET_ERRORS', err)
+            })
     }
 }
 export const getters = {}

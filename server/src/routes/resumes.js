@@ -4,17 +4,6 @@ const mongoose = require('mongoose')
 
 const router = express.Router()
 
-// const phone = new Smartphone({
-//     _id: new mongoose.Types.ObjectId(),
-//     vendor: req.body.vendor_id,
-//     name: req.body.name,
-//     os: req.body.os_id,
-//     memory: req.body.memory,
-//     display_size: req.body.display_size,
-//     battery: req.body.battery,
-//     price: req.body.price
-// })
-
 router.post('/', async (req, res) => {
     try {
         const userId = req.body.userId
@@ -24,9 +13,10 @@ router.post('/', async (req, res) => {
         }
 
         const usersResume = await RatedResume.findOne({userId: userId})
+        console.log(usersResume)
         if (usersResume) {
             console.log(userId, resumeInfo)
-            const result = await RatedResume.findOneAndUpdate(userId, {
+            const result = await RatedResume.findOneAndUpdate({userId: userId}, {
                 $push: {
                     approvedResume: resumeInfo
                 }
